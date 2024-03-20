@@ -1151,7 +1151,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Projects/L4_HandsOn/cmake/gcc-arm-none-eabi.cmake"
+			"value" : "D:/projects/L4_HandsOn/cmake/gcc-arm-none-eabi.cmake"
 		},
 		{
 			"name" : "CMAKE_VERBOSE_MAKEFILE",
