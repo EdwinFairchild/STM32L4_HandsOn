@@ -6,6 +6,7 @@ extern LPTIM_HandleTypeDef hlptim1;
 extern UART_HandleTypeDef huart2;
 extern DAC_HandleTypeDef hdac1;
 extern DMA_HandleTypeDef hdma_dac_ch1;
+extern TIM_HandleTypeDef htim2;
 // flag used to indicate we printing to console via DMA
 // not the shell/cli printf
 bool DMA_TX_complete = true;
@@ -204,7 +205,24 @@ void cmd_timeToPrint(uint8_t num, char *values[]){
 //----------------------------------------------------------------
 void cmd_sinWaveStart(uint8_t num, char *values[]){
     // output sine wave to DAC (configured to be circular)
+    // start dac
+    static uint32_t val = 0;
+    //start tim 2
+    HAL_TIM_Base_Start(&htim2);
+ //   HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);
+    //set dac value
+    // for(int i = 0 ; i < WAVE_SIZE; i++){
+    //     HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, sineWave[i]);
+    //     HAL_Delay(1);
+    // }
+    // HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 0);
+    // use DMA
     HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)sineWave, WAVE_SIZE, DAC_ALIGN_12B_R);
+    
+  
+    
+
+
 }
 //----------------------------------------------------------------
 void user_main(void){
@@ -213,7 +231,7 @@ void user_main(void){
     enableDWT();
     CL_cli_init(&cli, "uCShell:>", printf);
     #if USE_LL_DRIVER == 1
-    LL_USART_EnableIT_RXNE(USART2);
+    LL_USART_EnableIT_RXNE(USART2); 
     #else
     //kick off RX and enable interrupt
     HAL_UART_Receive_IT(&huart2, &cli.charReceived, 1);

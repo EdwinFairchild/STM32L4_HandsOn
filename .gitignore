@@ -3,7 +3,10 @@
 *.out
 *.obj
 *.exe
-
+*.d
+*.cyclo
+*.su
+*.map
 # Ignore build directories
 build/
 bin/

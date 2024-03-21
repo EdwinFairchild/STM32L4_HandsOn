@@ -21,6 +21,7 @@
 #include "dac.h"
 #include "dma.h"
 #include "lptim.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -93,6 +94,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_LPTIM1_Init();
   MX_DAC1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   user_main();
   /* USER CODE END 2 */
